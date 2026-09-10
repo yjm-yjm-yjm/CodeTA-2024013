@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>计算器 - 刘洋</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{display:flex;justify-content:center;align-items:center;height:100vh;background:#2c3e50;font-family:Arial}
+  .calc{width:300px;background:#ecf0f1;border-radius:10px;padding:15px;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+  .show{background:#fff;border-radius:8px;padding:12px;text-align:right;font-size:30px;margin-bottom:12px;min-height:45px;word-break:break-all}
+  .g{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+  .g button{height:50px;font-size:18px;border:none;border-radius:6px;background:#bdc3c7;cursor:pointer}
+  .g button:nth-child(4n){background:#e67e22;color:#fff}
+  .g button:last-child{background:#27ae60;color:#fff}
+  .g .cbtn{background:#e74c3c;color:#fff}
+</style>
+</head>
+<body>
+<div class="calc">
+  <div class="show" id="show">0</div>
+  <div class="g">
+    <button class="cbtn" onclick="c()">C</button><button class="cbtn" onclick="d()">DEL</button>
+    <button onclick="o('/')">/</button><button onclick="o('*')">*</button>
+    <button onclick="n('7')">7</button><button onclick="n('8')">8</button><button onclick="n('9')">9</button><button onclick="o('-')">-</button>
+    <button onclick="n('4')">4</button><button onclick="n('5')">5</button><button onclick="n('6')">6</button><button onclick="o('+')">+</button>
+    <button onclick="n('1')">1</button><button onclick="n('2')">2</button><button onclick="n('3')">3</button><button onclick="e()">=</button>
+    <button onclick="n('0')">0</button><button onclick="n('.')">.</button>
+  </div>
+</div>
+<script>
+var show=document.getElementById("show");
+var a="",op="",wait=false;
+function n(x){if(wait){show.textContent=x;wait=false}else{show.textContent=show.textContent==="0"?x:show.textContent+x}}
+function o(x){a=show.textContent;op=x;wait=true}
+function e(){if(op==="")return;var x=parseFloat(a),y=parseFloat(show.textContent),r;
+if(op==="+")r=x+y;else if(op==="-")r=x-y;else if(op==="*")r=x*y;else r=y===0?"错误":x/y;
+show.textContent=r;a="";op="";}
+function c(){show.textContent="0";a="";op="";wait=false}
+function d(){if(wait)return;show.textContent=show.textContent.length>1?show.textContent.slice(0,-1):"0"}
+</script>
+</body>
+</html>
